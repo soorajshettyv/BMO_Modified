@@ -1,0 +1,42 @@
+server:
+  port: 9091
+spring:
+  mvc:
+    view:
+      suffix: .html
+      prefix: /
+  h2:
+    console:
+      enabled: true
+      path: /h2
+      settings:
+        web-allow-others: true
+  datasource:
+    url: ${accountloginms.datasource.url:jdbc:h2:mem:accountloginmsDb;DB_CLOSE_DELAY=-1}
+    username: ${accountloginms.datasource.username:sa}
+    password: ${accountloginms.datasource.password:}
+    driver-class-name: ${accountloginms.datasource.driver:org.h2.Driver}
+  jpa:
+    show-sql: true
+      
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 30000
+        timeout:
+          enabled: false          
+
+jwtSecret: mySecretKey
+jwtExpirationMs: 86400000
+    
+
